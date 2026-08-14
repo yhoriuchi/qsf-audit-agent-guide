@@ -1,0 +1,15 @@
+title: QSF Audit Agent Guide
+description: A systematic protocol for auditing Qualtrics QSF files for survey logic, randomization, validation, embedded data, wording, and export compatibility.
+markdown: kramdown
+kramdown:
+  input: GFM
+exclude:
+  - .git/
+  - .github/
+  - _site/
+  - .DS_Store
+  - AGENTS.md
+  - README.md
+  - prompts/
+  - templates/
+  - project_history/
