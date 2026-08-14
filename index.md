@@ -14,6 +14,8 @@ layout: default
 - **Created:** August 14, 2026
 - **Last revised:** August 14, 2026
 
+![Page views](https://hits.sh/yhoriuchi.github.io/qsf-audit-agent-guide.svg?label=page%20views)
+
 A systematic protocol for auditing Qualtrics QSF files for survey logic, randomization, validation, embedded data, wording, and export compatibility.
 
 The audit is read-only by default. It preserves the source QSF, reconstructs the active survey, separates confirmed defects from design ambiguities, and identifies the preview and export tests still required before fielding.
