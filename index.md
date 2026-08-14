@@ -1,8 +1,7 @@
 ---
 title: QSF Audit Agent Guide
+layout: default
 ---
-
-<link rel="stylesheet" href="assets/site.css">
 
 <main class="page-shell" markdown="1">
 
@@ -15,25 +14,76 @@ title: QSF Audit Agent Guide
 - **Created:** August 14, 2026
 - **Last revised:** August 14, 2026
 
-![Page views](https://hits.sh/yhoriuchi.github.io/qsf-audit-agent-guide.svg?label=page%20views)
-
 A systematic protocol for auditing Qualtrics QSF files for survey logic, randomization, validation, embedded data, wording, and export compatibility.
 
 The audit is read-only by default. It preserves the source QSF, reconstructs the active survey, separates confirmed defects from design ambiguities, and identifies the preview and export tests still required before fielding.
 
 <div class="hero-actions" markdown="1">
+<a class="button button-primary" href="#quick-audit">Audit a QSF Locally</a>
 <button type="button" class="button button-primary" id="copy-agent-instructions">Copy Agent Instructions</button>
 <span class="copy-status" id="copy-agent-instructions-status" aria-live="polite"></span>
 </div>
 
 </section>
 
+## Private, Browser-Only Quick Audit
+
+<section class="audit-tool" id="quick-audit" aria-labelledby="quick-audit-title">
+  <div class="audit-tool-heading">
+    <div>
+      <h3 id="quick-audit-title">Drop a QSF file to generate a structural audit report</h3>
+      <p>This quick audit runs entirely in your browser. It does not upload, transmit, or store your QSF file.</p>
+    </div>
+    <span class="privacy-badge">Private by design</span>
+  </div>
+
+  <div class="drop-zone" id="qsf-drop-zone" role="button" tabindex="0" aria-controls="qsf-file-input" aria-describedby="qsf-privacy-note qsf-file-help">
+    <input id="qsf-file-input" class="visually-hidden" type="file" accept=".qsf,application/json">
+    <span class="drop-zone-title">Drag and drop a .qsf file here</span>
+    <span class="drop-zone-help" id="qsf-file-help">or select a file from your device (maximum 20 MB)</span>
+    <button type="button" class="button" id="qsf-select-file">Select QSF File</button>
+  </div>
+
+  <div class="privacy-note" id="qsf-privacy-note">
+    <strong>Your QSF remains private.</strong> The file is processed in browser memory for this session. No file contents are sent to Yusaku Horiuchi, GitHub Pages, an AI provider, analytics, or another server. The report is created locally and downloaded directly to your device.
+  </div>
+
+  <p class="audit-status" id="qsf-audit-status" aria-live="polite"></p>
+
+  <section class="audit-results" id="qsf-audit-results" hidden aria-labelledby="qsf-results-title">
+    <div class="audit-results-header">
+      <div>
+        <h3 id="qsf-results-title">Quick Audit Results</h3>
+        <p id="qsf-results-summary"></p>
+      </div>
+      <div class="audit-result-actions">
+        <a class="button button-primary" id="qsf-download-report" href="#" download>Download Markdown Report</a>
+        <button type="button" class="button" id="qsf-copy-report">Copy Report</button>
+        <button type="button" class="button" id="qsf-reset-audit">Audit Another File</button>
+      </div>
+    </div>
+
+<div class="audit-metrics" id="qsf-audit-metrics"></div>
+<div class="finding-list" id="qsf-finding-list"></div>
+
+<details class="report-preview">
+<summary>Preview the complete Markdown report</summary>
+<pre id="qsf-report-preview"></pre>
+</details>
+  </section>
+
+  <div class="audit-error" id="qsf-audit-error" hidden role="alert"></div>
+</section>
+
+> **What this tool can and cannot do:** The Quick Audit detects structural patterns visible in the QSF. It cannot determine every research-design intention or prove that Qualtrics, a panel platform, custom JavaScript, or an exported dataset will behave correctly. Use **Copy Agent Instructions** for a deeper audit and complete the generated pre-fielding checklist.
+
 ## How to Use This Guide
 
-1. Click **Copy Agent Instructions** and paste the instructions into the agent that will audit the survey.
-2. Give the agent the `.qsf` file, the intended survey rules, and any prior QSF or audit report.
-3. Specify eligibility, validation, randomization, panel redirect, and export requirements when known.
-4. Require a detailed audit report and preserve the original QSF.
+1. For an immediate private structural check, drag the `.qsf` file into **Private, Browser-Only Quick Audit** and download the report.
+2. For a deeper review, click **Copy Agent Instructions** and paste the instructions into the agent that will audit the survey.
+3. Give the agent the `.qsf` file, the intended survey rules, and any prior QSF or audit report.
+4. Specify eligibility, validation, randomization, panel redirect, and export requirements when known.
+5. Require a detailed audit report and preserve the original QSF.
 
 <section class="summary-grid" markdown="1">
 
@@ -157,56 +207,4 @@ The report should include:
 - unresolved design decisions and final conclusion.
 
 <script id="agent-instructions-text" type="text/plain">{% include_relative AGENTS.md %}</script>
-<script>
-(function () {
-  var button = document.getElementById("copy-agent-instructions");
-  var source = document.getElementById("agent-instructions-text");
-  var status = document.getElementById("copy-agent-instructions-status");
-
-  if (!button || !source) {
-    return;
-  }
-
-  function setStatus(message) {
-    if (!status) {
-      return;
-    }
-    status.textContent = message;
-    window.clearTimeout(setStatus.timeout);
-    setStatus.timeout = window.setTimeout(function () {
-      status.textContent = "";
-    }, 2400);
-  }
-
-  function fallbackCopy(text) {
-    var textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.setAttribute("readonly", "");
-    textarea.style.position = "fixed";
-    textarea.style.top = "-9999px";
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textarea);
-  }
-
-  button.addEventListener("click", function () {
-    var text = source.textContent.trim();
-
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(function () {
-        setStatus("Copied");
-      }).catch(function () {
-        fallbackCopy(text);
-        setStatus("Copied");
-      });
-      return;
-    }
-
-    fallbackCopy(text);
-    setStatus("Copied");
-  });
-})();
-</script>
-
 </main>
