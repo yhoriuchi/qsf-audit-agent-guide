@@ -31,7 +31,7 @@ a {
 }
 
 .page-shell {
-  width: min(1080px, calc(100% - 32px));
+  width: min(948px, calc(100% - 32px));
   margin: 0 auto;
   padding: 40px 0 64px;
 }
@@ -550,7 +550,7 @@ blockquote {
 
 @media (max-width: 760px) {
   .page-shell {
-    width: min(100% - 22px, 1080px);
+    width: min(100% - 22px, 948px);
     padding-top: 18px;
   }
 
