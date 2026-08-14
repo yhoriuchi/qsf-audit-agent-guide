@@ -596,7 +596,7 @@
     ].forEach(function (item) { lines.push("- [ ] " + item); });
 
     lines.push("", "## Limitations", "");
-    lines.push("This browser-only Quick Audit checks deterministic structural patterns visible in the QSF. It does not infer every research-design intention, execute custom JavaScript or web services, simulate the Qualtrics runtime, contact a panel platform, or inspect an exported dataset. A deeper agent audit and route-by-route Qualtrics preview remain necessary.");
+    lines.push("This browser-only Quick Audit checks deterministic structural patterns visible in the QSF. It does not infer every research-design intention, execute custom JavaScript or web services, simulate the Qualtrics runtime, contact a panel platform, or inspect an exported dataset. For substantive alignment, give a trusted agent both the current draft pre-analysis plan and the QSF and require a plan-to-QSF concordance table. A deeper agent audit and route-by-route Qualtrics preview remain necessary.");
     lines.push("", "## Audit Conclusion", "", readiness);
     return lines.join("\n") + "\n";
   }

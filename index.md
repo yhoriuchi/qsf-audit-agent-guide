@@ -77,13 +77,20 @@ The audit is read-only by default. It preserves the source QSF, reconstructs the
 
 > **What this tool can and cannot do:** The Quick Audit detects structural patterns visible in the QSF. It cannot determine every research-design intention or prove that Qualtrics, a panel platform, custom JavaScript, or an exported dataset will behave correctly. Use **Copy Agent Instructions** for a deeper audit and complete the generated pre-fielding checklist.
 
+<section class="deep-audit-callout" aria-labelledby="deep-audit-requirement">
+<h3 id="deep-audit-requirement">Required for a deep audit: provide both the draft pre-analysis plan and the QSF</h3>
+<p>The draft pre-analysis plan states the intended research design; the QSF implements it. An agent needs both files to determine whether eligibility rules, treatments, randomization, outcomes, checks, exclusions, embedded data, and analysis variables are implemented as planned.</p>
+<p><strong>Ask the agent to produce a plan-to-QSF concordance table and flag every mismatch, omission, or unresolved design choice.</strong> If no draft plan exists, the agent should say that substantive design alignment could not be verified.</p>
+<p class="deep-audit-privacy"><strong>Privacy:</strong> Do not place the draft plan in the browser-only Quick Audit. Provide it privately to the agent you choose for the deeper review.</p>
+</section>
+
 ## How to Use This Guide
 
 1. For an immediate private structural check, drag the `.qsf` file into **Private, Browser-Only Quick Audit** and download the report.
 2. For a deeper review, click **Copy Agent Instructions** and paste the instructions into the agent that will audit the survey.
-3. Give the agent the `.qsf` file, the intended survey rules, and any prior QSF or audit report.
-4. Specify eligibility, validation, randomization, panel redirect, and export requirements when known.
-5. Require a detailed audit report and preserve the original QSF.
+3. Give the agent both the current `.qsf` file and the current draft pre-analysis plan. Include any prior QSF or audit report.
+4. Specify eligibility, validation, randomization, panel redirect, and export requirements that are not yet documented in the draft plan.
+5. Require a plan-to-QSF concordance table, a detailed audit report, and preservation of the original QSF.
 
 <section class="summary-grid" markdown="1">
 
@@ -188,6 +195,20 @@ Static inspection is necessary but not sufficient. Before fielding, preview and 
 6. A synthetic test-response export, including column names, recodes, embedded data, treatment indicators, text entries, and missing values.
 7. The exact repaired QSF exported as the fielding candidate.
 
+## Plan-to-QSF Concordance
+
+A deep audit should begin with the current draft pre-analysis plan and compare it directly with the QSF. At minimum, the agent should map:
+
+- study population, recruitment, eligibility, and exclusion rules;
+- treatment arms, control conditions, randomization levels, probabilities, and stratification;
+- primary and secondary outcomes, manipulation checks, attention checks, and covariates;
+- required, requested, and optional responses;
+- quotas, screen-outs, stopping rules, termination behavior, and completion codes;
+- embedded-data fields, treatment indicators, scores, recodes, export tags, and planned analysis variables;
+- any QSF content not documented in the plan and any planned design element absent from the QSF.
+
+The report should classify each item as **aligned**, **partly aligned**, **not aligned**, **not implemented**, **not specified in the plan**, or **not verifiable from the QSF**.
+
 ## Report Structure
 
 Every audit should produce a detailed Markdown report. If the environment supports polished document generation, the agent may also create a PDF from the same source.
@@ -196,6 +217,7 @@ The report should include:
 
 - audit date, AI model, reasoning level, workspace, source file, and SHA-256 checksum;
 - modification status and relationship to any prior audit;
+- draft pre-analysis plan path, version or date, checksum when practical, and a plan-to-QSF concordance table;
 - executive summary and fielding-readiness conclusion;
 - active element, block, question, randomizer, and excluded-content counts;
 - severity definitions and finding statuses;

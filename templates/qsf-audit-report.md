@@ -12,6 +12,9 @@
 - Source file size: `[bytes]`
 - Source modified time: `[timestamp]`
 - Source SHA-256: `[checksum]`
+- Draft pre-analysis plan: `[path]`
+- Draft plan version or date: `[version/date]`
+- Draft plan SHA-256: `[checksum / not recorded]`
 - Audit scope: `[scope]`
 - Modification status: `Read-only audit; the source QSF was not changed`
 - Prior QSF or report: `[path / none]`
@@ -23,6 +26,8 @@
 Fielding-readiness conclusion: `[ready for controlled testing / not ready for fielding / other]`
 
 `[Concise summary of the most important findings, improvements, and unresolved decisions.]`
+
+Plan-to-QSF alignment conclusion: `[aligned / material discrepancies found / incomplete because the draft plan was unavailable or underspecified]`
 
 Key findings:
 
@@ -48,6 +53,25 @@ Coverage:
 | Low | Cleanup or maintainability issue unlikely to affect recorded data. |
 
 Finding status is reported separately as `confirmed defect`, `risk`, `ambiguity`, `recommendation`, or `passed check`.
+
+## Plan-to-QSF Concordance
+
+The draft pre-analysis plan is the intended-design specification; the QSF is the implementation. Every material planned design element and every material QSF element not documented in the plan should appear here.
+
+| Design area | Draft-plan requirement | Plan citation | QSF implementation | QSF identifiers | Alignment status | Finding or action needed |
+|---|---|---|---|---|---|---|
+| Population and eligibility | `[requirement]` | `[section/page]` | `[implementation]` | `[flow/block/question IDs]` | `[aligned / partly aligned / not aligned / not implemented / not specified in plan / not verifiable from QSF]` | `[finding/action]` |
+| Treatment and randomization | `[requirement]` | `[section/page]` | `[implementation]` | `[randomizer/field IDs]` | `[status]` | `[finding/action]` |
+| Outcomes and measures | `[requirement]` | `[section/page]` | `[implementation]` | `[question IDs/export tags]` | `[status]` | `[finding/action]` |
+| Exclusions and quality checks | `[requirement]` | `[section/page]` | `[implementation]` | `[question/branch/field IDs]` | `[status]` | `[finding/action]` |
+| Analysis variables and exports | `[requirement]` | `[section/page]` | `[implementation]` | `[export tags/embedded fields/recodes]` | `[status]` | `[finding/action]` |
+
+Summarize separately:
+
+- Planned elements absent from or only partly implemented in the QSF: `[items]`
+- QSF elements not documented in the draft plan: `[items]`
+- Conflicts requiring a researcher decision: `[items]`
+- Items not verifiable from the QSF: `[items]`
 
 ## Status of Prior Findings
 

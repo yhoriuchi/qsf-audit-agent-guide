@@ -16,6 +16,7 @@ Do not merely confirm that the file is valid JSON. Treat the QSF as a connected 
 8. Check both respondent experience and downstream data consequences.
 9. Exclude Trash, unused, or unreachable material from active-flow findings, but identify it clearly and note any risk it still creates.
 10. Produce a durable audit report even when no defects are found.
+11. For a deep audit, treat the current draft pre-analysis plan as the intended-design specification and the QSF as its implementation. Compare them explicitly rather than inferring design intent from the QSF alone.
 
 ## Inputs to Request or Identify
 
@@ -24,17 +25,18 @@ Before auditing, identify:
 1. The source QSF path and filename.
 2. The project and survey name.
 3. Whether this is a first audit or a re-audit of a revised QSF.
-4. Any prior QSF version and prior audit report.
-5. Intended survey population and eligibility rules.
-6. Intended consent, screen-out, attention-check, quota, and termination behavior.
-7. Which questions must be forced, requested, or optional, including explicit exceptions.
-8. Intended randomization probabilities or subset sizes.
-9. Recruitment or panel platform and required completion, screen-out, over-quota, and quality-failure URLs or status codes.
-10. Embedded-data fields supplied by contact lists, URL parameters, web services, or panel integrations.
-11. Export requirements, naming conventions, recodes, and downstream analysis constraints.
-12. Whether JavaScript, custom HTML, translations, scoring, quotas, or external integrations are expected.
+4. The current draft pre-analysis plan, including its path, version or date, and checksum when practical.
+5. Any prior QSF version and prior audit report.
+6. Intended survey population and eligibility rules.
+7. Intended consent, screen-out, attention-check, quota, and termination behavior.
+8. Which questions must be forced, requested, or optional, including explicit exceptions.
+9. Intended randomization probabilities or subset sizes.
+10. Recruitment or panel platform and required completion, screen-out, over-quota, and quality-failure URLs or status codes.
+11. Embedded-data fields supplied by contact lists, URL parameters, web services, or panel integrations.
+12. Export requirements, naming conventions, recodes, and downstream analysis constraints.
+13. Whether JavaScript, custom HTML, translations, scoring, quotas, or external integrations are expected.
 
-If some information is unavailable, continue with a structural audit and mark intent-dependent conclusions as ambiguities rather than defects.
+If the draft pre-analysis plan is unavailable, continue with a structural audit but state prominently that substantive design alignment could not be verified. Mark intent-dependent conclusions as ambiguities rather than defects.
 
 ## Audit Workflow
 
@@ -56,6 +58,24 @@ If some information is unavailable, continue with a structural audit and mark in
 5. Check that every referenced block, question, quota, scoring category, embedded-data field, and flow node exists.
 6. Check for elements placed after unconditional End Survey or redirect elements that may therefore be unreachable.
 7. Report active and inactive counts separately.
+
+### 2A. Compare the Draft Pre-Analysis Plan with the QSF
+
+Read the current draft pre-analysis plan before making substantive judgments about the QSF. Build a plan-to-QSF concordance table that maps each planned design element to its implementation.
+
+At minimum, compare:
+
+1. Study population, recruitment source, eligibility criteria, consent, and exclusions.
+2. Treatment arms, control conditions, factorial structure, randomization level, probabilities, stratification, blocking, and balance requirements.
+3. Primary outcomes, secondary outcomes, manipulation checks, attention checks, covariates, moderators, and indices.
+4. Question wording, response scales, choice coding, timing, ordering, display logic, and required-response policy when specified in the plan.
+5. Quotas, screen-outs, stopping rules, termination behavior, completion codes, and panel-platform requirements.
+6. Embedded-data fields, treatment indicators, scoring, recodes, export tags, and variables expected by the planned analysis.
+7. Planned exclusions or quality flags and the QSF elements that create the necessary exported variables.
+8. Every QSF treatment, measure, check, branch, or exclusion rule that is not documented in the draft plan.
+9. Every planned design element that is absent, only partly implemented, implemented differently, or not verifiable from the QSF.
+
+Classify each row as `aligned`, `partly aligned`, `not aligned`, `not implemented`, `not specified in the plan`, or `not verifiable from the QSF`. Cite both the plan section or page and the QSF identifiers. Do not silently resolve discrepancies by assuming that either file is authoritative beyond its stated role; present material conflicts to the user for a design decision.
 
 ### 3. Audit Survey Flow, Branches, and Termination
 
@@ -184,17 +204,18 @@ Return a detailed Markdown report for every audit. If the environment supports p
 
 Include:
 
-1. Report metadata: audit date, AI model, reasoning level, project, survey, workspace, source QSF, source SHA-256, audit scope, modification status, and relationship to prior versions.
-2. Executive summary with a clear fielding-readiness conclusion.
-3. Coverage counts: total and active elements, blocks, questions, randomizers, and excluded or dormant content.
-4. Severity definitions.
-5. Findings grouped by validation, flow and termination, randomization, embedded data and piping, wording and formatting, export compatibility, and operational settings.
-6. For each finding: severity, status, location, identifiers, evidence, impact, recommended correction, and verification needed.
-7. Structural checks passed.
-8. Recommended repair order.
-9. A pre-fielding verification checklist covering every route and material randomized rendering.
-10. Audit conclusion and unresolved design decisions.
-11. For a re-audit, a status table for every prior finding plus newly detected findings.
+1. Report metadata: audit date, AI model, reasoning level, project, survey, workspace, source QSF, source SHA-256, draft pre-analysis plan path, plan version or date, plan checksum when practical, audit scope, modification status, and relationship to prior versions.
+2. Executive summary with a clear fielding-readiness conclusion and a statement about plan-to-QSF alignment.
+3. A plan-to-QSF concordance table covering every planned design element and every material QSF element not documented in the plan.
+4. Coverage counts: total and active elements, blocks, questions, randomizers, and excluded or dormant content.
+5. Severity definitions.
+6. Findings grouped by plan alignment, validation, flow and termination, randomization, embedded data and piping, wording and formatting, export compatibility, and operational settings.
+7. For each finding: severity, status, plan citation, QSF location, identifiers, evidence, impact, recommended correction, and verification needed.
+8. Structural checks passed.
+9. Recommended repair order.
+10. A pre-fielding verification checklist covering every route and material randomized rendering.
+11. Audit conclusion and unresolved design decisions.
+12. For a re-audit, a status table for every prior finding plus newly detected findings.
 
 Do not include sensitive panel codes, credentials, or unnecessary confidential survey text. Redact secret values while preserving enough information to diagnose the configuration.
 

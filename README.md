@@ -36,12 +36,13 @@ The Quick Audit is intentionally deterministic. It does not replace a deeper age
 Give the agent:
 
 1. The `.qsf` file to audit.
-2. The intended survey behavior, including screening, forced-response, randomization, quota, and completion rules.
-3. The panel or recruitment platform and its completion and screen-out requirements.
-4. Any prior QSF version or prior audit report that should be compared.
-5. The instructions in [`AGENTS.md`](AGENTS.md) or the prompt in [`prompts/qsf-audit-agent.md`](prompts/qsf-audit-agent.md).
+2. The current draft pre-analysis plan, which serves as the intended-design specification.
+3. Intended survey behavior not yet documented in the draft plan, including screening, forced-response, randomization, quota, and completion rules.
+4. The panel or recruitment platform and its completion and screen-out requirements.
+5. Any prior QSF version or prior audit report that should be compared.
+6. The instructions in [`AGENTS.md`](AGENTS.md) or the prompt in [`prompts/qsf-audit-agent.md`](prompts/qsf-audit-agent.md).
 
-Require the agent to preserve the original QSF and return a detailed audit report that distinguishes confirmed structural defects from risks, ambiguities, recommendations, and checks that require Qualtrics preview testing.
+Require the agent to preserve the original QSF and return a plan-to-QSF concordance table plus a detailed audit report that distinguishes confirmed structural defects from risks, ambiguities, recommendations, and checks that require Qualtrics preview testing.
 
 Alternatively, users can begin with the website's browser-only Quick Audit and give its generated report to the agent as additional context.
 
